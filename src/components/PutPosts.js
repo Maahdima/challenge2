@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import ProgressedButton from "./ProgressedButton";
 
 function PutPosts({
   putTitle,
@@ -17,7 +18,11 @@ function PutPosts({
   putPostNum,
   setPutPostNum,
 }) {
-  const { apiCall, data } = useApi("put", "posts", putPostNum);
+  const { apiCall, data, loading, success } = useApi(
+    "put",
+    "posts",
+    putPostNum
+  );
 
   const handleSubmit = () => {
     apiCall(putTitle, putBody, putUserId, putPostNum);
@@ -65,9 +70,7 @@ function PutPosts({
             "Please enter a positive number",
           ]}
         />
-        <Button sx={{ margin: "15px" }} variant={"contained"} type="submit">
-          PUT
-        </Button>
+        <ProgressedButton label={"PUT"} loading={loading} success={success} />
       </ValidatorForm>
       <Divider>
         {data && (

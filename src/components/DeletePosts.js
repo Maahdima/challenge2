@@ -6,9 +6,14 @@ import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import ProgressedButton from "./ProgressedButton";
 
 function DeletePosts({ deletePostNum, setDeletePostNum }) {
-  const { apiCall, data } = useApi("delete", "posts", deletePostNum);
+  const { apiCall, data, loading, success } = useApi(
+    "delete",
+    "posts",
+    deletePostNum
+  );
 
   const handleSubmit = () => {
     apiCall();
@@ -33,9 +38,11 @@ function DeletePosts({ deletePostNum, setDeletePostNum }) {
             "Please enter a positive number",
           ]}
         />
-        <Button sx={{ margin: "15px" }} variant={"contained"} type="submit">
-          DELETE
-        </Button>
+        <ProgressedButton
+          label={"DELETE"}
+          loading={loading}
+          success={success}
+        />
       </ValidatorForm>
       <Divider>
         {data && (
